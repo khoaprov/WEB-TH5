@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 var router = express.Router();
 
 /* GET home page. */
-
 router.get('/product', function(req, res, next) {
   res.render('product', { title: 'Danh sách sản phẩm'});
 });
