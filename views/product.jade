@@ -1,0 +1,83 @@
+extends layout
+link(rel='stylesheet', href='/stylesheets/style.css')
+script.
+  var mongoose = require('mongoose');
+  var uri = "mongodb+srv://dikay3012:Khoakhung_3012@cluster0.mluan.mongodb.net/shoppingonline";
+  mongoose.connect(uri).then(() => console.log("connected!"))
+
+// Thêm một product mới
+script.
+  async function createProduct(id, name, description, price, categoryIds, images, show) {
+    try {
+      const newProduct = new product({
+        _id: id,
+        name: name,
+        description: description,
+        price: price,
+        categories_id: categoryIds,
+        images: images,
+      });
+    }
+
+block content
+  header
+    h1= title
+  .cart
+    a.btn.btn-info(href='/cart') Xem giỏ hàng
+  .container
+    .row
+      .col-md-4
+        .product.border
+          form(action='/add-product', method='post', class='product-form')
+            .form-group
+              label(for='id') ID
+              input#id.form-control(type='text', name='id', required=true)
+            .form-group
+              label(for='name') Name
+              input#name.form-control(type='text', name='name', required=true)
+            .form-group
+              label(for='description') Description
+              textarea#description.form-control(name='description', required=true)
+            .form-group
+              label(for='price') Price
+              input#price.form-control(type='number', name='price', required=true)
+            .form-group
+              label(for='categoryIds') Category IDs (comma separated)
+              input#categoryIds.form-control(type='text', name='categoryIds', required=true)
+            .form-group
+              label(for='images') Images (comma separated URLs)
+              input#images.form-control(type='text', name='images', required=true)
+            p
+            .button
+              a.btn.btn-primary(type='submit') Thêm sản phẩm
+            script.
+              document.querySelector('form').addEventListener('submit', async function(event) {
+              event.preventDefault();
+              const id = document.getElementById('id').value;
+              const name = document.getElementById('name').value;
+              const description = document.getElementById('description').value;
+              const price = document.getElementById('price').value;
+              const categoryIds = document.getElementById('categoryIds').value.split(',');
+              const images = document.getElementById('images').value.split(',');
+
+              try {
+                await createProduct(id, name, description, price, categoryIds, images);
+                alert('Product added successfully!');
+              } catch (error) {
+                console.error('Error adding product:', error);
+                alert('Failed to add product.');
+              }
+              });
+  
+  
+    .row
+      .col-md-4
+        .product.border
+          h2.product-title IPhone 12 Pro
+          p.price 18,990,000 VND
+          p
+          .button
+            a.btn.btn-primary(onclick="location.href='/product_title'") Chi tiết sản phẩm
+          p
+          .button
+            a.btn.btn-success(onclick="location.href='/cart'") Thêm vào giỏ hàng

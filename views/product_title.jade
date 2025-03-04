@@ -1,0 +1,38 @@
+extends layout
+link(rel='stylesheet', href='/stylesheets/style.css')
+
+block content
+  header
+    h1= title
+  .cart
+    a.btn.btn-info(href='/cart') Xem giỏ hàng
+  .container
+    .product-detail
+      p
+        strong Màn hình:
+        |  6.7 inch OLED, 120Hz
+      p
+        strong Vi xử lý:
+        |  XChip A12 Bionic
+      p
+        strong RAM:
+        |  8GB
+      p
+        strong Bộ nhớ:
+        |  128GB / 256GB / 512GB
+      p
+        strong Camera:
+        |  50MP + 12MP + 10MP
+      p
+        strong Pin:
+        |  5000mAh, sạc nhanh 65W
+      p
+        strong Hệ điều hành:
+        |  XOS 15 (Android 14)
+
+      p
+      .button 
+        a.btn.btn-success(onclick="location.href='/cart'") Thêm vào giỏ hàng
+      p
+      .button 
+        a.btn.btn-success(onclick="location.href='/product'") Danh sách các sản phẩm
